@@ -1,10 +1,10 @@
 # Vedro Import Profiler
 
-Vedro Import Profiler allows you to profile your imports in Vedro projects, helping you identify and optimize import statements for better performance.
+Vedro Import Profiler allows you to profile your imports in [Vedro](https://vedro.io) projects, helping you identify and optimize import statements for better performance.
 
 ## Installation
 
-To get started, you first need to install the Vedro Import Profiler plugin. Open your terminal and run the following command:
+To get started, you first need to install the [vedro-import-profiler](https://pypi.org/project/vedro-import-profiler/) plugin. Open your terminal and run the following command:
 
 ```shell
 $ pip install vedro-import-profiler
@@ -32,5 +32,5 @@ $ PYTHONPROFILEIMPORTTIME=yes vedro run --vedro-import-profiler 2> import.log
 After running the profiler, you can visualize the import times using the [tuna](https://github.com/nschloe/tuna) viewer. Tuna provides an intuitive interface for analyzing the performance of your imports. To use Tuna with your generated log file, execute the following command:
 
 ```shell
-tuna import.log
+$ tuna import.log
 ```
