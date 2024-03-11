@@ -1,7 +1,7 @@
 import os
 from inspect import isclass
 from pathlib import Path
-from typing import List, Type
+from typing import Any, List, Type
 
 from vedro import Scenario
 from vedro.core import ScenarioLoader
@@ -19,10 +19,17 @@ class ScenarioFileLoader(ScenarioLoader):
             if name.startswith("_"):
                 continue
             val = getattr(module, name)
-            if isclass(val) and issubclass(val, Scenario) and val != Scenario:
+            if self._is_vedro_scenario(val):
                 val.__file__ = os.path.abspath(module.__file__)  # type: ignore
                 loaded.append(val)
         return loaded
 
     def _path_to_module_name(self, path: Path) -> str:
         return path.with_suffix("").as_posix().replace("/", ".")
+
+    def _is_vedro_scenario(self, val: Any) -> bool:
+        if not isclass(val) or (val == Scenario):
+            return False
+        cls_name = val.__name__
+        return issubclass(val, Scenario) and (
+            cls_name.startswith("Scenario") or cls_name.endswith("Scenario"))
